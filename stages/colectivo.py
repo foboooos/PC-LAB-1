@@ -13,7 +13,7 @@ class ComparacionExperimentos(
 
     def ejecutar(
         self,
-        experimentos: list[Experimento],
+        entrada: list[Experimento],
         contexto: ContextoPipeline,
     ) -> ResultadoAnalisis:
         """Retorna los experimentos junto con sus resultados comparativos."""

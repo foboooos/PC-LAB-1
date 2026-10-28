@@ -10,7 +10,7 @@ class AnalisisEspacial(EtapaPipeline[list[Experimento], list[Experimento]]):
 
     def ejecutar(
         self,
-        experimentos: list[Experimento],
+        entrada: list[Experimento],
         contexto: ContextoPipeline,
     ) -> list[Experimento]:
         """Analiza las zonas, la densidad y el flujo de cada experimento."""
