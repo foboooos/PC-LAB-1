@@ -12,7 +12,7 @@ class PreparacionTrayectorias(EtapaPipeline[list[Experimento], list[Experimento]
 
     def ejecutar(
         self,
-        experimentos: list[Experimento],
+        entrada: list[Experimento],
         contexto: ContextoPipeline,
     ) -> list[Experimento]:
         """Prepara las observaciones y trayectorias de cada experimento."""

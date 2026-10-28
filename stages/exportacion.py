@@ -12,7 +12,7 @@ class ExportacionResultados(EtapaPipeline[ResultadoAnalisis, None]):
 
     def ejecutar(
         self,
-        resultados: ResultadoAnalisis,
+        entrada: ResultadoAnalisis,
         contexto: ContextoPipeline,
     ) -> None:
         """Guarda los resultados en la ruta de salida configurada."""
