@@ -1,5 +1,6 @@
 """Modelo básico de una trayectoria peatonal."""
 
+import math
 from dataclasses import dataclass, field
 
 from .observacion import Observacion
@@ -13,13 +14,21 @@ class Trayectoria:
     observaciones: list[Observacion] = field(default_factory=list)
 
     def calcular_distancia_total(self) -> float:
-        """Calcula la distancia total recorrida por el peatón."""
-        raise NotImplementedError
+        """Suma de las distancias entre posiciones consecutivas."""
+        pares = zip(self.observaciones, self.observaciones[1:])
+        return sum(math.hypot(b.x - a.x, b.y - a.y) for a, b in pares)
 
     def calcular_desplazamiento(self) -> float:
-        """Calcula el desplazamiento entre el inicio y el final."""
-        raise NotImplementedError
+        """Distancia en línea recta entre la primera y la última posición."""
+        if len(self.observaciones) < 2:
+            return 0.0
+        inicio, fin = self.observaciones[0], self.observaciones[-1]
+        return math.hypot(fin.x - inicio.x, fin.y - inicio.y)
 
     def calcular_velocidad_media(self, fps: float) -> float:
-        """Calcula la velocidad media usando la frecuencia del experimento."""
-        raise NotImplementedError
+        """Distancia total dividida por el tiempo total observado (m/s)."""
+        if len(self.observaciones) < 2:
+            return 0.0
+        frames = self.observaciones[-1].frame - self.observaciones[0].frame
+        tiempo = frames / fps
+        return self.calcular_distancia_total() / tiempo if tiempo > 0 else 0.0

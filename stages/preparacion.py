@@ -36,14 +36,15 @@ class PreparacionTrayectorias(EtapaPipeline[list[Experimento], list[Experimento]
         self,
         observaciones: list[Observacion],
     ) -> list[Observacion]:
-        """Quita observaciones con x o y inválidos y frames repetidos."""
+        """Valida que las observaciones cumplan con todos su campos, sin repetirse y sin valores nulos."""
 
-        con_numeros = filter(
-            lambda o: math.isfinite(o.x) and math.isfinite(o.y), observaciones
+        validas_basicas = filter(
+            lambda o: math.isfinite(o.x) and math.isfinite(o.y) and o.frame != 0,
+            observaciones,
         )
         vistos = set()
         validas = []
-        for o in con_numeros:
+        for o in validas_basicas:
             clave = (o.id_peaton, o.frame)
             if clave not in vistos:
                 vistos.add(clave)
