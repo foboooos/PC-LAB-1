@@ -32,3 +32,14 @@ class Trayectoria:
         frames = self.observaciones[-1].frame - self.observaciones[0].frame
         tiempo = frames / fps
         return self.calcular_distancia_total() / tiempo if tiempo > 0 else 0.0
+
+    def calcular_segmentos(
+            self, fps: float
+        ) -> list[tuple[Observacion, Observacion, float]]:
+            """Tramos entre observaciones consecutivas: (inicio, fin, velocidad en m/s)."""
+            segmentos = []
+            for a, b in zip(self.observaciones, self.observaciones[1:]):
+                dt = (b.frame - a.frame) / fps
+                if dt > 0:
+                    segmentos.append((a, b, math.hypot(b.x - a.x, b.y - a.y) / dt))
+            return segmentos

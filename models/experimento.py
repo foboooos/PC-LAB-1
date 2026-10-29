@@ -16,3 +16,6 @@ class Experimento:
     resultados_individuales: dict[int, dict[str, float]] = field(default_factory=dict)
     resultados_colectivos: dict[str, float] = field(default_factory=dict)
     fps: float | None = None
+    resultados_zonas: dict[str, dict[str, float]] = field(default_factory=dict)
+    serie_densidad: list[dict[str, float]] = field(default_factory=list)
+    serie_flujo: list[dict[str, float]] = field(default_factory=list)
